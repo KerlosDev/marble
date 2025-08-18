@@ -61,7 +61,11 @@ export default function LandscapeGallery() {
                         <h3 className="font-serif text-xl mb-2">Error Loading Landscapes</h3>
                         <p className="text-gray-500 mb-6">{error}</p>
                         <button
-                            onClick={() => window.location.reload()}
+                            onClick={() => {
+                                if (typeof window !== 'undefined') {
+                                    window.location.reload();
+                                }
+                            }}
                             className="btn btn-primary"
                         >
                             Retry

@@ -2,19 +2,34 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const pathname = usePathname();
 
+    const pathname = usePathname();
+    const [materialType, setMaterialType] = useState('');
+
+    // Set materialType from URL after mount or when pathname changes
     useEffect(() => {
-        const handleScroll = () => {
+        if (typeof window !== 'undefined') {
+            const params = new window.URLSearchParams(window.location.search);
+            setMaterialType(params.get('materialType') || '');
+        }
+    }, [pathname]);
+
+    // Set up scroll event after mount
+    useEffect(() => {
+        function handleScroll() {
             setIsScrolled(window.scrollY > 0);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        }
+        if (typeof window !== 'undefined') {
+            window.addEventListener('scroll', handleScroll);
+            // Set initial scroll state
+            handleScroll();
+            return () => window.removeEventListener('scroll', handleScroll);
+        }
     }, []);
 
     return (
@@ -47,37 +62,37 @@ export default function Navbar() {
                     </Link>
                     <Link
                         href="/products?materialType=MARBLE"
-                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'MARBLE'
+                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && materialType === 'MARBLE'
                             ? 'text-primary'
                             : 'text-gray-700'
                             }`}
                     >
                         <span className='  font-rubik'>الرخام</span>
-                        {pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'MARBLE' && (
+                        {pathname === '/products' && materialType === 'MARBLE' && (
                             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"></span>
                         )}
                     </Link>
                     <Link
                         href="/products?materialType=GRANITE"
-                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'GRANITE'
+                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && materialType === 'GRANITE'
                             ? 'text-primary'
                             : 'text-gray-700'
                             }`}
                     >
                         <span className='  font-rubik'>الجرانيت</span>
-                        {pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'GRANITE' && (
+                        {pathname === '/products' && materialType === 'GRANITE' && (
                             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"></span>
                         )}
                     </Link>
                     <Link
                         href="/products?materialType=NATURAL_STONE"
-                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'NATURAL_STONE'
+                        className={`relative py-2 text-sm font-rubik transition-colors hover:text-primary ${pathname === '/products' && materialType === 'NATURAL_STONE'
                             ? 'text-primary'
                             : 'text-gray-700'
                             }`}
                     >
                         <span className='  font-rubik'>الحجر الطبيعي</span>
-                        {pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'NATURAL_STONE' && (
+                        {pathname === '/products' && materialType === 'NATURAL_STONE' && (
                             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"></span>
                         )}
                     </Link>
@@ -136,7 +151,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/products?materialType=MARBLE"
-                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'MARBLE'
+                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && materialType === 'MARBLE'
                                 ? 'text-primary bg-primary/5'
                                 : 'text-gray-700'
                                 }`}
@@ -146,7 +161,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/products?materialType=GRANITE"
-                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'GRANITE'
+                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && materialType === 'GRANITE'
                                 ? 'text-primary bg-primary/5'
                                 : 'text-gray-700'
                                 }`}
@@ -156,7 +171,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/products?materialType=NATURAL_STONE"
-                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && new URLSearchParams(window.location.search).get('materialType') === 'NATURAL_STONE'
+                            className={`px-4 py-2 text-sm font-rubik transition-colors rounded-lg hover:bg-gray-50 ${pathname === '/products' && materialType === 'NATURAL_STONE'
                                 ? 'text-primary bg-primary/5'
                                 : 'text-gray-700'
                                 }`}
