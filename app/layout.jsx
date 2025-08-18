@@ -18,7 +18,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Granet | Luxury Marble & Granite",
+  title: "El Fares | Luxury Marble ",
   description: "Luxurious marble and granite products for your home and business",
   keywords: "marble, granite, luxury, stone, countertops, slabs",
 };
