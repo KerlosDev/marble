@@ -138,8 +138,12 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Navigation */}
-            <div className={`md:hidden transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
-                <div className="container-custom py-4 bg-white border-t border-gray-100 shadow-lg">
+            <div
+                className={`md:hidden fixed top-0 right-0 left-0 z-50 bg-white transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'
+                    }`}
+                style={{ minHeight: '100vh' }}
+            >
+                <div className="container-custom py-4 pt-20">
                     <nav className="flex flex-col space-y-4">
                         <Link
                             href="/"
