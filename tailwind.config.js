@@ -6,12 +6,27 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                'rubik': ['var(--font-rubik)', 'Arial', 'sans-serif'],
+            },
             colors: {
-                primary: '#C8A96A', // Gold accent
-                'primary-light': '#D8BC8A',
-                'primary-dark': '#B89A5A',
+                primary: '#B8A47E', // Refined gold accent
+                'primary-light': '#D4C7AD',
+                'primary-dark': '#96845E',
                 background: '#FFFFFF',
-                foreground: '#000000',
+                foreground: '#1A1A1A',
+                neutral: {
+                    50: '#F9F9F9',
+                    100: '#F3F3F3',
+                    200: '#E8E8E8',
+                    300: '#DDDDDD',
+                    400: '#CCCCCC',
+                    500: '#999999',
+                    600: '#666666',
+                    700: '#404040',
+                    800: '#262626',
+                    900: '#171717',
+                },
             },
             fontFamily: {
                 arabic: ['arabicc', 'sans-serif'],
@@ -19,7 +34,7 @@ module.exports = {
                 geist: ['GeistVF', 'sans-serif'],
                 geistMono: ['GeistMonoVF', 'monospace'],
                 lantx: ['LANTX', 'serif'],
-                rubik: ['Rubik', 'sans-serif'],
+                rubik: ['var(--font-rubik)', 'Arial', 'sans-serif'],
             },
             borderRadius: {
                 '2xl': '1rem',

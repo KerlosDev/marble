@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Inter, Rubik } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
@@ -17,6 +17,12 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const rubik = Rubik({
+  subsets: ["latin", "arabic"],
+  variable: "--font-rubik",
+  display: "swap",
+});
+
 export const metadata = {
   title: "El Fares | Luxury Marble ",
   description: "Luxurious marble and granite products for your home and business",
@@ -26,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} ${rubik.variable} antialiased`}>
 
         <Toaster position="top-center" toastOptions={{
           duration: 3000,
