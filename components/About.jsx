@@ -67,7 +67,7 @@ const About = () => {
             <div className="w-full md:w-1/2 text-right mt-8 md:mt-0 md:pr-8 space-y-6 rtl">
                 <div className="space-y-2">
                     <h2 className="text-4xl font-bold text-gray-800 mb-2">عن</h2>
-                    <h1 className="text-5xl font-bold text-gray-900 border-b-4 border-marble pb-2 inline-block">برايم ماربل</h1>
+                    <h1 className="text-5xl font-bold text-gray-900 border-b-4 border-marble pb-2 inline-block"> الفارس</h1>
                 </div>
 
                 <p className="text-lg text-gray-700 leading-relaxed">
