@@ -1,54 +1,93 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'class',
     content: [
-        './app/**/*.{js,jsx}',
-        './components/**/*.{js,jsx}',
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
         extend: {
-            fontFamily: {
-                'rubik': ['var(--font-rubik)', 'Arial', 'sans-serif'],
+            animation: {
+                tilt: 'tilt 10s infinite linear',
+                'flow': 'flow 4s ease-in-out infinite',
+                'premium-grid': 'premium-grid 3s linear infinite',
+                'pulse-subtle': 'pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'float-fast': 'float 3s ease-in-out infinite',
+                'float-slower': 'float 6s ease-in-out infinite',
+                'wave': 'wave 8s ease-in-out infinite',
+                'wave-delayed': 'wave 8s ease-in-out infinite 1s',
             },
-            colors: {
-                primary: '#B8A47E', // Refined gold accent
-                'primary-light': '#D4C7AD',
-                'primary-dark': '#96845E',
-                background: '#FFFFFF',
-                foreground: '#1A1A1A',
-                neutral: {
-                    50: '#F9F9F9',
-                    100: '#F3F3F3',
-                    200: '#E8E8E8',
-                    300: '#DDDDDD',
-                    400: '#CCCCCC',
-                    500: '#999999',
-                    600: '#666666',
-                    700: '#404040',
-                    800: '#262626',
-                    900: '#171717',
+            keyframes: {
+                tilt: {
+                    '0%, 50%, 100%': { transform: 'rotate(0deg)' },
+                    '25%': { transform: 'rotate(0.5deg)' },
+                    '75%': { transform: 'rotate(-0.5deg)' },
+                },
+                flow: {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                },
+                'premium-grid': {
+                    '0%': { backgroundPosition: '0 0' },
+                    '100%': { backgroundPosition: '-20px -20px' },
+                },
+                'pulse-subtle': {
+                    '0%, 100%': { opacity: 1 },
+                    '50%': { opacity: 0.7 },
+                },
+                wave: {
+                    '0%, 100%': { transform: 'scaleY(1.2) translateY(-10px)' },
+                    '50%': { transform: 'scaleY(0.8) translateY(10px)' },
                 },
             },
+            dropShadow: {
+                white: '0 4px 6px rgba(255, 255, 255, 0.5)',
+                slate: '0 5px 20px rgba(255, 255, 255, 0.5)',
+                red: '0 2px 50px rgba(245, 86, 85, 0.6)',
+                blue: '0 0px 90px rgba(47, 75, 255, 0.6)',
+            },
+            backgroundImage: {
+                'custom-image': "url('/dna.png')",
+                'chbg': "url('/chbg.svg')",
+                'brain-image': "url('/brain.jpeg')",
+                'blood-image': "url('/blood.jpeg')",
+                'biopat-image': "url('/biopat.png')",
+                'blod2-image': "url('/blod2.jpeg')",
+                'pattern-image': "url('/pattern.png')",
+                'admin-imag': "url('/bgadmin.svg')",
+                'paton': "url('/pato.jpg')",
+                'non3': "url('/non3.png')",
+            },
+            direction: {
+                rtl: 'rtl', // Right-to-left
+                ltr: 'ltr', // Left-to-right 
+            },
+            colors: {
+                primary: "#971c1c",
+                primary2: "#d62727",
+                primary3: "#ee8e1d",
+                primary4: "#ffd43e",
+                primary5: "#113441",
+                maincolor: "#000814",
+                maincolor2: "#012a4a",
+                secondcolr: "#ffb703",
+                yellowui: "#ffe100",
+                thirdcolor: "#fb8500",
+                marble:"#d9d3cb"
+            },
             fontFamily: {
-                arabic: ['arabicc', 'sans-serif'],
-                gaza: ['DG-Gaza', 'serif'],
-                geist: ['GeistVF', 'sans-serif'],
-                geistMono: ['GeistMonoVF', 'monospace'],
-                lantx: ['LANTX', 'serif'],
-                rubik: ['var(--font-rubik)', 'Arial', 'sans-serif'],
-            },
-            borderRadius: {
-                '2xl': '1rem',
-            },
-            boxShadow: {
-                'soft': '0 4px 20px 0 rgba(0, 0, 0, 0.05)',
-                'medium': '0 8px 30px 0 rgba(0, 0, 0, 0.1)',
-            },
-            gridTemplateColumns: {
-                'fluid': 'repeat(auto-fill, minmax(300px, 1fr))',
+                anton: ['Anton', 'sans-serif'], // Add Anton as a custom font
+                arabicUI: ['ArabicUI', 'sans-serif'],
+                arabicUI2: ['ArabicUI', 'sans-serif'],
+                arabicUI3: ['ArabicUI', 'DG-Gaza', 'sans-serif'],
+                arabicUI4: ['arabicc', 'sans-serif'],
+                abril: ['"Abril Fatface"', 'cursive'], // Custom font name
+                Gaza: ['DG-Gaza', 'sans-serif'],
+                rakkas: ['Rakkas', 'sans-serif'], // Add Rakkas font to Tailwind theme
+                rubik: ['Rubik', 'DG-Gaza', 'ArabicUI', 'sans-serif'],
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-    ],
-}
+    plugins: [],
+};
