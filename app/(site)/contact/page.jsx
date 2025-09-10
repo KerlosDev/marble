@@ -441,78 +441,78 @@ const page = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* Company Overview with Map */}
-                            <motion.div
-                                className="relative overflow-hidden"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                viewport={{ once: true }}
-                            >
-                                {/* Map Container with Gradient Background - matching form theme */}
-                                <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md rounded-3xl shadow-2xl border border-[#c8a464]/20 overflow-hidden">
-                                    {/* Decorative Elements */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -mr-16 -mt-16"></div>
-                                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -ml-12 -mb-12"></div>
-
-                                    <div className="relative p-8">
-                                        {/* Header */}
-                                        <div className="text-center mb-8">
-                                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#c8a464] to-[#d4b574] rounded-full mb-6 shadow-lg">
-                                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            </div>
-                                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3 rtl">موقعنا</h2>
-                                            <p className="text-gray-600 rtl text-lg text-right leading-relaxed">
-                                                تفضلوا بزيارة مقرنا الرئيسي في مصر، حيث ندير عمليات الاستيراد والتصدير للرخام والمواد الغذائية والمنتجات الزراعية عالية الجودة.
-                                            </p>
-                                        </div>
-
-                                        {/* Google Maps Embed */}
-                                        <div className="relative rounded-2xl overflow-hidden shadow-lg border-2 border-[#c8a464]/20 mb-6">
-                                            <iframe
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13815.319162356636!2d31.3417978!3d30.118921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa5d786666b%3A0x14ebec70ab30918a!2sAl%20Mqawlon%20Al%20Arab%2C%20Al%20Matar%2C%20El%20Nozha%2C%20Cairo%20Governorate!5e0!3m2!1sen!2seg!4v1725534262086!5m2!1sen!2seg"
-                                                width="100%"
-                                                height="300"
-                                                style={{ border: 0 }}
-                                                allowFullScreen=""
-                                                loading="lazy"
-                                                referrerPolicy="no-referrer-when-downgrade"
-                                                className="w-full"
-                                            ></iframe>
-                                            {/* Map overlay for styling */}
-                                            <div className="absolute inset-0 pointer-events-none border-2 border-[#c8a464]/30 rounded-2xl"></div>
-                                        </div>
-
-                                        {/* Map Info Below */}
-                                        <div className="pt-6 border-t border-[#c8a464]/20">
-                                            <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
-                                                <div className="flex items-center text-gray-600">
-                                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    </svg>
-                                                    <span className="text-sm font-medium">موقع سهل الوصول</span>
-                                                </div>
-                                                <div className="flex items-center text-gray-600">
-                                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m6 4V7a2 2 0 00-2-2H6a2 2 0 00-2 2v4m-4 4V7a4 4 0 014-4h12a4 4 0 014 4v4" />
-                                                    </svg>
-                                                    <span className="text-sm font-medium">مواقف متاحة</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
                         </motion.div>
 
                     </div>
                 </div>
             </div>
 
+            {/* Full Width Map Section */}
+            <motion.div
+                className="relative w-full"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+            >
+                {/* Map Container with Gradient Background - Full Width */}
+                <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md shadow-2xl border-t border-b border-[#c8a464]/20 overflow-hidden">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -mr-16 -mt-16"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -ml-12 -mb-12"></div>
+
+                    <div className="relative py-16 px-4 sm:px-6 lg:px-8">
+                        {/* Header */}
+                        <div className="text-center mb-12 max-w-4xl mx-auto">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#c8a464] to-[#d4b574] rounded-full mb-6 shadow-lg">
+                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3 rtl">موقعنا</h2>
+                            <p className="text-gray-600 rtl text-lg text-right leading-relaxed">
+                                تفضلوا بزيارة مقرنا الرئيسي في مصر، حيث ندير عمليات الاستيراد والتصدير للرخام والمواد الغذائية والمنتجات الزراعية عالية الجودة.
+                            </p>
+                        </div>
+
+                        {/* Google Maps Embed - Full Width */}
+                        <div className="relative w-full max-w-none rounded-2xl overflow-hidden shadow-lg border-2 border-[#c8a464]/20 mb-8">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13815.319162356636!2d31.3417978!3d30.118921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa5d786666b%3A0x14ebec70ab30918a!2sAl%20Mqawlon%20Al%20Arab%2C%20Al%20Matar%2C%20El%20Nozha%2C%20Cairo%20Governorate!5e0!3m2!1sen!2seg!4v1725534262086!5m2!1sen!2seg"
+                                width="100%"
+                                height="500"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="w-full"
+                            ></iframe>
+                            {/* Map overlay for styling */}
+                            <div className="absolute inset-0 pointer-events-none border-2 border-[#c8a464]/30 rounded-2xl"></div>
+                        </div>
+
+                        {/* Map Info Below */}
+                        <div className="pt-8 border-t border-[#c8a464]/20 max-w-4xl mx-auto">
+                            <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
+                                <div className="flex items-center text-gray-600">
+                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span className="text-sm font-medium">موقع سهل الوصول</span>
+                                </div>
+                                <div className="flex items-center text-gray-600">
+                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m6 4V7a2 2 0 00-2-2H6a2 2 0 00-2 2v4m-4 4V7a4 4 0 014-4h12a4 4 0 014 4v4" />
+                                    </svg>
+                                    <span className="text-sm font-medium">مواقف متاحة</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
 
         </div>
     )
