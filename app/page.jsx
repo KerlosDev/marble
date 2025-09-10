@@ -7,16 +7,24 @@ import TwoSection from '@/components/TwoSection'
 import Video from '@/components/Video'
 import React from 'react'
 import '@fontsource/cairo';
+import Marble from '@/components/marble'
+import Granet from '@/components/granet'
+import Landscape from '@/components/landescape'
+import Container from '@/components/container'
+import Shit from '@/components/Shit'
 
 const page = () => {
     return (
         <main className="min-h-screen">
-            <Hero />
-            <About />
-            <TwoSection />
+            <Shit></Shit>
+           
+         
+            <Marble />
+
+            <Landscape></Landscape>
+            <Container></Container>
             <Products />
-            <Video></Video>
-            <Contact></Contact>
+             <Contact></Contact>
         </main>
     )
 }

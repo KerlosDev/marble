@@ -1,217 +1,495 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { motion } from 'framer-motion';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
-export default function AboutPage() {
+// Animation variants
+const fadeInUp = {
+    initial: { opacity: 0, y: 50 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+};
+
+const fadeInLeft = {
+    initial: { opacity: 0, x: -50 },
+    animate: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+};
+
+const fadeInRight = {
+    initial: { opacity: 0, x: 50 },
+    animate: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+    }
+};
+
+const staggerContainer = {
+    initial: {},
+    animate: {
+        transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.3
+        }
+    }
+};
+
+const AboutPage = () => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Slideshow images
+    const slideImages = [
+        { src: '/marble.jpg', alt: 'Marble Collection' },
+        { src: '/marble2.jpg', alt: 'Premium Marble' },
+        { src: '/marbleslide.jpg', alt: 'Marble Showcase' },
+        { src: '/landscape.jpg', alt: 'Landscape Projects' },
+        { src: '/landone.jpg', alt: 'Landscape Design' },
+        { src: '/landtwo.jpg', alt: 'Garden Landscape' },
+        { src: '/landthree.jpg', alt: 'Modern Landscape' },
+        { src: '/landfour.jpg', alt: 'Luxury Landscape' }
+    ];
+
+    if (!mounted) {
+        return <div className="min-h-screen bg-gray-100"></div>;
+    }
+
     return (
-        <>
-            {/* Hero Banner */}
-            <section className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-                <div className="absolute inset-0">
-                    <Image
-                        src="https://images.unsplash.com/photo-1618219740975-d40978bb7378?q=80&w=2400"
-                        alt="Marble quarry"
-                        fill
-                        priority
-                        className="object-cover"
-                        sizes="100vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
-                </div>
-
-                <div className="relative container-custom h-full flex items-center">
-                    <div className="max-w-2xl text-white">
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
-                            About Granet
-                        </h1>
-                        <p className="text-lg md:text-xl max-w-lg">
-                            A legacy of excellence in premium stone surfaces for over three decades
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Our Story */}
-            <section className="py-16 md:py-24">
-                <div className="container-custom">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">Our Story</h2>
-                            <div className="w-16 h-1 bg-primary mb-6"></div>
-                            <div className="prose prose-lg">
-                                <p className="mb-4">
-                                    Founded in 1985, Granet has been at the forefront of the natural stone industry, providing exquisite marble and granite products to discerning clients worldwide. What began as a family business with a single quarry has grown into an international enterprise with operations spanning four continents.
-                                </p>
-                                <p className="mb-4">
-                                    Our commitment to quality, sustainability, and craftsmanship has allowed us to forge partnerships with the world's most prestigious architects, designers, and builders. We pride ourselves on sourcing only the most exceptional stone materials, each piece telling its own geological story from the earth's formation.
-                                </p>
-                                <p>
-                                    Today, Granet continues to be guided by the founding principles of excellence and integrity, combining traditional knowledge with cutting-edge technology to deliver superior stone products for both residential and commercial projects.
-                                </p>
+        <div className="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
+            {/* Hero Section with Slideshow */}
+            <section className="relative h-screen overflow-hidden">
+                <Swiper
+                    modules={[Pagination, Autoplay, EffectFade]}
+                    effect="fade"
+                    pagination={{
+                        clickable: true,
+                        bulletClass: 'swiper-pagination-bullet !bg-white/50 !w-3 !h-3',
+                        bulletActiveClass: 'swiper-pagination-bullet-active !bg-white !scale-150'
+                    }}
+                    autoplay={{
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    }}
+                    loop={true}
+                    className="h-full w-full"
+                >
+                    {slideImages.map((image, index) => (
+                        <SwiperSlide key={index}>
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={image.src}
+                                    alt={image.alt}
+                                    fill
+                                    className="object-cover"
+                                    priority={index === 0}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/30"></div>
                             </div>
-                        </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
 
-                        <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-medium">
+                {/* Hero Content Overlay */}
+                <div className="absolute font-rubik inset-0 flex items-center justify-center z-10">
+                    <motion.div
+                        className="text-center text-white px-4 max-w-4xl"
+                        variants={staggerContainer}
+                        initial="initial"
+                        animate="animate"
+                    >
+                        <motion.div variants={fadeInUp} className="mb-6">
                             <Image
-                                src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=1200"
-                                alt="Granet stonework craftsman"
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                src="/logowhite.png"
+                                alt="Elfares Logo"
+                                width={200}
+                                height={100}
+                                className="mx-auto mb-8"
                             />
-                        </div>
-                    </div>
+                        </motion.div>
+                        <motion.h1
+                            variants={fadeInUp}
+                            className="text-2xl  md:text-6xl lg:text-7xl font-bold mb-6 leading-tight font-arabic"
+                        >
+                            شركة الفارس للرخام والمناظر الطبيعية
+                        </motion.h1>
+                        <motion.p
+                            variants={fadeInUp}
+                            className="text-xl md:text-2xl mb-8 leading-relaxed opacity-90"
+                        >
+                            رائدون في صناعة الرخام والمناظر الطبيعية منذ عقود
+                        </motion.p>
+                        <motion.div
+                            variants={fadeInUp}
+                            className="flex flex-col sm:flex-row gap-4 justify-center"
+                        >
+                            <button className="px-8 py-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-semibold rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                                اكتشف منتجاتنا
+                            </button>
+                            <button className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-full transition-all duration-300 shadow-xl">
+                                تواصل معنا
+                            </button>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* Mission & Values */}
-            <section className="py-16 md:py-24 bg-gray-50">
-                <div className="container-custom">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                            Our Mission & Values
-                        </h2>
-                        <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-                        <p className="text-lg text-gray-600">
-                            We are guided by a commitment to excellence, sustainability, and innovation in everything we do
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white p-8 rounded-2xl shadow-soft text-center">
-                            <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-primary">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-serif font-semibold mb-4">Excellence</h3>
-                            <p className="text-gray-600">
-                                We strive for perfection in every cut, every finish, and every installation. Our standards exceed industry expectations.
-                            </p>
+            {/* Company Story Section */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        className="max-w-7xl mx-auto"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="text-center mb-16">
+                            <motion.div
+                                variants={fadeInUp}
+                                initial="initial"
+                                whileInView="animate"
+                                viewport={{ once: true }}
+                                className="flex items-center justify-center mb-8"
+                            >
+                                <div className="w-1/4 border-t-2 border-amber-600 mr-4"></div>
+                                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 px-4 font-arabic">
+                                    قصة الفارس
+                                </h2>
+                                <div className="w-1/4 border-t-2 border-amber-600 ml-4"></div>
+                            </motion.div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-soft text-center">
-                            <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-primary">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598-.542 1.865-1.345l.215-.688c.082-.264.418-.406.677-.304l.009.003c.555.21.98.742 1.017 1.368a9 9 0 01-9.966-8.593M12.75 3.031c-1.05 0-2.062.18-3 .512M12.75 3.031a9 9 0 00-8.862 12.872m0 0l.67-.201a1.125 1.125 0 01.98-.134c.086.032.176.046.268.046h.007c.328 0 .598-.261.598-.589v-.843c0-.325.26-.598.585-.598h.007a.58.58 0 01.098 0 .597.597 0 01.585.598v.64c0 .329.27.599.598.599h.007c.35 0 .635.282.635.632v.989c0 .172.046.34.134.484a.699.699 0 00.557.31c.742 0 1.127-.872.595-1.38l-.596-.586c-.204-.199-.204-.53 0-.73l.595-.585c.533-.508.149-1.379-.593-1.379H13.5c-.092 0-.183-.015-.269-.046a1.126 1.126 0 01-.967-.678l-.33-.833a1.127 1.127 0 01.374-1.363l.535-.39c.523-.379.655-1.107.308-1.661l-.31-.496c-.318-.51-.316-1.162.003-1.67l.367-.577a1.125 1.125 0 01.927-.463h.002c.38 0 .736.186.951.498l.055.08c.099.142.233.243.387.286.387.11.813-.019 1.028-.353l.065-.1a1.126 1.126 0 011.86.546l.034.11c.076.248.283.418.54.437l.16.014a1.126 1.126 0 011.05 1.168l-.014.17a.549.549 0 00.168.434l.113.12c.406.436.414 1.114.021 1.559l-.995 1.134a1.125 1.125 0 01-1.203.3l-.195-.066a1.125 1.125 0 00-1.275.43l-.21.315c-.166.25-.268.55-.291.869-.03.414.128.817.43 1.074l.41.351c.347.298.587.736.652 1.224l.044.338a9.016 9.016 0 01-9.191-8.49" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-serif font-semibold mb-4">Sustainability</h3>
-                            <p className="text-gray-600">
-                                We practice responsible quarrying and processing, minimizing environmental impact while preserving nature's masterpieces.
-                            </p>
-                        </div>
-
-                        <div className="bg-white p-8 rounded-2xl shadow-soft text-center">
-                            <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-primary">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-serif font-semibold mb-4">Innovation</h3>
-                            <p className="text-gray-600">
-                                We continuously advance our techniques and technologies to offer new finishes, treatments, and applications for natural stone.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Team */}
-            <section className="py-16 md:py-24">
-                <div className="container-custom">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                            Our Leadership Team
-                        </h2>
-                        <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-                        <p className="text-lg text-gray-600">
-                            Meet the experts who guide our vision and maintain our standard of excellence
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Team Member 1 */}
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-soft">
-                            <div className="relative h-80">
-                                <Image
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600"
-                                    alt="CEO"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                />
-                            </div>
-                            <div className="p-6 text-center">
-                                <h3 className="text-xl font-serif font-bold mb-1">Robert Martinez</h3>
-                                <p className="text-primary mb-4">Chief Executive Officer</p>
-                                <p className="text-gray-600 text-sm">
-                                    With over 25 years in the stone industry, Robert leads Granet with a focus on global expansion and sustainable practices.
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+                            <motion.div
+                                variants={fadeInLeft}
+                                initial="initial"
+                                whileInView="animate"
+                                viewport={{ once: true }}
+                                className="space-y-6"
+                            >
+                                <h3 className="text-3xl font-bold text-gray-800 mb-6 font-arabic">
+                                    عن شركة الفارس للرخام والمناظر الطبيعية
+                                </h3>
+                                <p className="text-lg text-gray-700 leading-relaxed font-arabic">
+                                    تأسست شركة الفارس للرخام والمناظر الطبيعية لتكون رائدة في مجال استخراج وتصنيع وتوريد أجود أنواع الرخام المصري الطبيعي. نحن نفخر بتراثنا العريق في صناعة الحجر الطبيعي، حيث نجمع بين الخبرة التقليدية والتكنولوجيا الحديثة.
                                 </p>
-                            </div>
-                        </div>
-
-                        {/* Team Member 2 */}
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-soft">
-                            <div className="relative h-80">
-                                <Image
-                                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600"
-                                    alt="Chief Design Officer"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                />
-                            </div>
-                            <div className="p-6 text-center">
-                                <h3 className="text-xl font-serif font-bold mb-1">Elena Romano</h3>
-                                <p className="text-primary mb-4">Chief Design Officer</p>
-                                <p className="text-gray-600 text-sm">
-                                    Elena brings her background in architecture and material science to curate our exclusive collections.
+                                <p className="text-lg text-gray-700 leading-relaxed font-arabic">
+                                    منذ تأسيسنا، نسعى جاهدين لتقديم منتجات عالية الجودة تلبي أعلى المعايير العالمية. نحن متخصصون في استخراج الرخام من أشهر المحاجر المصرية ومعالجته بأحدث التقنيات لضمان الحصول على منتجات متميزة.
                                 </p>
-                            </div>
-                        </div>
+                                <div className="grid grid-cols-2 gap-6 mt-8">
+                                    <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="text-3xl font-bold text-amber-600 mb-2">25+</div>
+                                        <div className="text-gray-700 font-arabic">سنة خبرة</div>
+                                    </div>
+                                    <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="text-3xl font-bold text-amber-600 mb-2">500+</div>
+                                        <div className="text-gray-700 font-arabic">مشروع منجز</div>
+                                    </div>
+                                </div>
+                            </motion.div>
 
-                        {/* Team Member 3 */}
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-soft">
-                            <div className="relative h-80">
-                                <Image
-                                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600"
-                                    alt="Technical Director"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                />
-                            </div>
-                            <div className="p-6 text-center">
-                                <h3 className="text-xl font-serif font-bold mb-1">David Chen</h3>
-                                <p className="text-primary mb-4">Technical Director</p>
-                                <p className="text-gray-600 text-sm">
-                                    David oversees our manufacturing processes, implementing innovative cutting and finishing technologies.
-                                </p>
-                            </div>
+                            <motion.div
+                                variants={fadeInRight}
+                                initial="initial"
+                                whileInView="animate"
+                                viewport={{ once: true }}
+                                className="relative"
+                            >
+                                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                                    <Image
+                                        src="/storehouse.png"
+                                        alt="Elfares Factory"
+                                        width={600}
+                                        height={400}
+                                        className="w-full h-auto"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="py-16 md:py-24 bg-foreground text-white">
-                <div className="container-custom text-center">
-                    <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-                        Experience the Granet Difference
-                    </h2>
-                    <p className="text-lg mb-8 max-w-2xl mx-auto">
-                        Let us help you bring your vision to life with the world's finest stone materials
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/products" className="btn btn-primary">
-                            Browse Products
-                        </Link>
-                        <Link href="/contact" className="btn btn-outline border-white text-white hover:bg-white hover:text-foreground">
-                            Contact Us
-                        </Link>
-                    </div>
+            {/* Services Section */}
+            <section className="py-20 bg-gradient-to-br from-stone-100 to-stone-200">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        className="max-w-7xl mx-auto"
+                        variants={staggerContainer}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                    >
+                        <div className="text-center mb-16">
+                            <motion.div
+                                variants={fadeInUp}
+                                className="flex items-center justify-center mb-8"
+                            >
+                                <div className="w-1/4 border-t-2 border-amber-600 mr-4"></div>
+                                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 px-4 font-arabic">
+                                    خدماتنا المتخصصة
+                                </h2>
+                                <div className="w-1/4 border-t-2 border-amber-600 ml-4"></div>
+                            </motion.div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {/* Marble Service */}
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="relative h-64">
+                                    <Image
+                                        src="/marble.jpg"
+                                        alt="Marble Services"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <h3 className="text-2xl font-bold mb-2 font-arabic">الرخام الطبيعي</h3>
+                                    </div>
+                                </div>
+                                <div className="p-6">
+                                    <p className="text-gray-700 leading-relaxed font-arabic">
+                                        نقدم أجود أنواع الرخام المصري الطبيعي من محاجرنا المتخصصة، مع ضمان أعلى معايير الجودة والتصنيع.
+                                    </p>
+                                </div>
+                            </motion.div>
+
+                            {/* Landscape Service */}
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="relative h-64">
+                                    <Image
+                                        src="/landscape.jpg"
+                                        alt="Landscape Services"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <h3 className="text-2xl font-bold mb-2 font-arabic">المناظر الطبيعية</h3>
+                                    </div>
+                                </div>
+                                <div className="p-6">
+                                    <p className="text-gray-700 leading-relaxed font-arabic">
+                                        تصميم وتنفيذ المناظر الطبيعية والحدائق الفاخرة بأسلوب عصري يجمع بين الجمال والوظيفة.
+                                    </p>
+                                </div>
+                            </motion.div>
+
+                            {/* Import/Export Service */}
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="relative h-64">
+                                    <Image
+                                        src="/cf.jpg"
+                                        alt="Import Export Services"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div className="absolute bottom-4 left-4 text-white">
+                                        <h3 className="text-2xl font-bold mb-2 font-arabic">التوريد والتصدير</h3>
+                                    </div>
+                                </div>
+                                <div className="p-6">
+                                    <p className="text-gray-700 leading-relaxed font-arabic">
+                                        نقوم بتوريد وتصدير منتجاتنا عالية الجودة إلى جميع أنحاء العالم مع ضمان أفضل خدمات الشحن والتسليم.
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
-        </>
+
+            {/* Import/Export Section */}
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        className="max-w-7xl mx-auto"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <motion.div
+                                variants={fadeInLeft}
+                                initial="initial"
+                                whileInView="animate"
+                                viewport={{ once: true }}
+                                className="relative"
+                            >
+                                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                                    <Image
+                                        src="/Cont.jpg"
+                                        alt="Import Export Operations"
+                                        width={600}
+                                        height={400}
+                                        className="w-full h-auto"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInRight}
+                                initial="initial"
+                                whileInView="animate"
+                                viewport={{ once: true }}
+                                className="space-y-6"
+                            >
+                                <h3 className="text-3xl font-bold text-gray-800 mb-6 font-arabic">
+                                    التوريد والتصدير العالمي
+                                </h3>
+                                <p className="text-lg text-gray-700 leading-relaxed font-arabic">
+                                    نحن رواد في مجال تصدير الرخام المصري الطبيعي إلى جميع أنحاء العالم. نعمل مع شركاء عالميين لضمان وصول منتجاتنا عالية الجودة إلى عملائنا في أفضل حالة.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed font-arabic">
+                                    خدماتنا في التوريد والتصدير تشمل التعبئة المتخصصة، والشحن الآمن، والمتابعة المستمرة حتى وصول البضائع. نحن نلتزم بأعلى معايير الجودة والمواعيد المحددة.
+                                </p>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                                    <div className="flex items-center space-x-3 space-x-reverse p-4 bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold">✈️</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-800 font-arabic">شحن عالمي</h4>
+                                            <p className="text-sm text-gray-600 font-arabic">توصيل سريع وآمن</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center space-x-3 space-x-reverse p-4 bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold">🏆</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-800 font-arabic">جودة مضمونة</h4>
+                                            <p className="text-sm text-gray-600 font-arabic">معايير عالمية</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center space-x-3 space-x-reverse p-4 bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold">📦</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-800 font-arabic">تعبئة متخصصة</h4>
+                                            <p className="text-sm text-gray-600 font-arabic">حماية كاملة</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center space-x-3 space-x-reverse p-4 bg-gradient-to-r from-amber-50 to-amber-100 rounded-xl">
+                                        <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold">🌍</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-800 font-arabic">تغطية عالمية</h4>
+                                            <p className="text-sm text-gray-600 font-arabic">في جميع القارات</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Values Section */}
+            <section className="py-20 bg-gradient-to-br from-amber-50 to-amber-100">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        className="max-w-7xl mx-auto text-center"
+                        variants={staggerContainer}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                    >
+                        <div className="text-center mb-16">
+                            <motion.div
+                                variants={fadeInUp}
+                                className="flex items-center justify-center mb-8"
+                            >
+                                <div className="w-1/4 border-t-2 border-amber-600 mr-4"></div>
+                                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 px-4 font-arabic">
+                                    قيمنا ورؤيتنا
+                                </h2>
+                                <div className="w-1/4 border-t-2 border-amber-600 ml-4"></div>
+                            </motion.div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-amber-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-2xl text-white">🎯</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-800 mb-4 font-arabic">رؤيتنا</h3>
+                                <p className="text-gray-700 leading-relaxed font-arabic">
+                                    أن نكون الشركة الرائدة عالمياً في صناعة الرخام والمناظر الطبيعية، ونحقق التميز في كل ما نقدمه.
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-amber-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-2xl text-white">💎</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-800 mb-4 font-arabic">رسالتنا</h3>
+                                <p className="text-gray-700 leading-relaxed font-arabic">
+                                    تقديم أفضل المنتجات والخدمات في مجال الرخام والمناظر الطبيعية مع الالتزام بأعلى معايير الجودة والإبداع.
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="w-16 h-16 bg-gradient-to-r from-amber-600 to-amber-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-2xl text-white">⭐</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-800 mb-4 font-arabic">قيمنا</h3>
+                                <p className="text-gray-700 leading-relaxed font-arabic">
+                                    الصدق، الشفافية، الجودة، الابتكار، والالتزام بالمواعيد. هذه هي القيم التي توجه عملنا يومياً.
+                                </p>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+ 
+        </div>
     );
-}
+};
+
+export default AboutPage;

@@ -24,11 +24,11 @@ const Navbar = () => {
   return (
     <nav
       className={`
-        fixed w-full z-50 font-rubik transition-all duration-300
-        bg-[url('/marble_720.png')]  bg-center
+        fixed w-full z-50 font-rubik transition-all duration-500
+        ${scrolled ? 'bg-[url("/marble_720.png")] bg-center shadow-xl py-4' : 'bg-transparent py-6'}
         before:content-[''] before:absolute before:inset-0  
-        before:transition-opacity before:duration-300
-        ${scrolled ? 'py-4 shadow-xl before:bg-opacity-90' : 'py-6 before:bg-opacity-75'}
+        before:transition-all before:duration-500
+        ${scrolled ? ' before:bg-opacity-80' : 'before:bg-transparent'}
       `}
     >
       <div className="relative z-10 container mx-auto px-8 md:px-12 lg:px-16">
@@ -39,7 +39,7 @@ const Navbar = () => {
             <div className="hidden lg:block">
               <Link href="/contact">
                 <button className=" bg-white text-black px-7 py-3 rounded-full font-medium text-base hover:shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
-                  اتصل بنا
+                  English
                 </button>
               </Link>
             </div>
@@ -76,10 +76,10 @@ const Navbar = () => {
           {/* Navigation - Desktop - Center */}
           <div className="hidden lg:flex items-center justify-center space-x-6 rtl:space-x-reverse">
             <Link
-              href="/en"
+              href="/contact"
               className="text-white hover:text-marble px-5 py-3 font-medium text-base transition-colors duration-200 relative group"
             >
-              English
+              اتصل بنا
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-marble transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
             </Link>
 
@@ -91,22 +91,7 @@ const Navbar = () => {
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-marble transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
             </Link>
 
-            <div className="relative group">
-              <button className="text-white hover:text-marble px-5 py-3 font-medium text-base flex items-center gap-1 transition-colors duration-200">
-                كيف يسير العمل؟
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div dir='rtl' className="absolute top-full left-0 pt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="rounded-lg shadow-xl bg-white/95 backdrop-blur-sm border-t-2 border-yellow-300">
-                  <div className="py-1">
-                    <Link href="/workflow" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">مراحل العمل</Link>
-                    <Link href="/process" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">عملية التصنيع</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
             <div className="relative group">
               <button className="text-white hover:text-marble px-5 py-3 font-medium text-base flex items-center gap-1 transition-colors duration-200">
@@ -140,7 +125,7 @@ const Navbar = () => {
             <Link href="/">
               <div className="relative">
                 <Image
-                  src="/logowhite.png"
+                  src="/logo-en.png"
                   alt="Prime Marble"
                   width={160}
                   height={70}
@@ -219,12 +204,12 @@ const Navbar = () => {
               className="text-white font-medium py-3 border-b border-white/10 hover:text-marble transition-colors duration-200"
               onClick={() => setIsMenuOpen(false)}
             >
-              English
+              اتصل بنا
             </Link>
 
             <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
               <button className=" bg-marble   text-black px-6 py-3 rounded-md font-medium mt-2 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300">
-                اتصل بنا
+                English
               </button>
             </Link>
           </div>

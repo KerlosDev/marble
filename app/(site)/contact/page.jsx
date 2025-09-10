@@ -1,255 +1,521 @@
-'use client';
+"use client"
+import React from 'react'
+import Image from 'next/image'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import toast from 'react-hot-toast';
-import Input from '@/components/ui/Input';
-import Textarea from '@/components/ui/Textarea';
-import Button from '@/components/ui/Button';
+const page = () => {
+    const ref = React.useRef(null);
 
-// Form validation schema
-const contactSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
-    phone: z.string().min(1, 'Phone is required'),
-    email: z.string().email('Invalid email address').optional().or(z.string().length(0)),
-    company: z.string().optional(),
-    quantityM2: z.number().positive().optional(),
-    message: z.string().min(1, 'Message is required'),
-});
-
-export default function ContactPage() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset
-    } = useForm({
-        resolver: zodResolver(contactSchema),
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
     });
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const onSubmit = async (data) => {
-        setIsSubmitting(true);
-
-        try {
-            const response = await fetch('/api/inquiry', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Something went wrong');
-            }
-
-            toast.success('Your message has been sent!');
-            reset();
-        } catch (error) {
-            toast.error(error.message || 'Failed to send message');
-            console.error('Contact form submission error:', error);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    const yBg = useTransform(scrollYProgress, [0, 1], ['-20%', '20%']);
+    const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
     return (
-        <>
-            <div className="container-custom py-16 md:py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div>
-                        <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                            Contact Us
-                        </h1>
-                        <div className="w-16 h-1 bg-primary mb-6"></div>
+        <div ref={ref} className="relative min-h-screen overflow-hidden -mt-1 -mb-1 font-rubik">
+            {/* Background with parallax */}
+            <motion.div
+                className="absolute -top-2 -left-2 w-[calc(100%+16px)] h-[calc(100%+16px)] -z-10"
+                style={{ y: yBg, opacity }}
+            >
+                <motion.div className="absolute inset-0">
+                    <Image
+                        src={"/shit.jpg"}
+                        alt="Marble quarry background"
+                        fill
+                        className="object-cover bg-black/10 scale-105"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-black/40"></div>
+                </motion.div>
+            </motion.div>
 
-                        <div className="prose prose-lg mb-8">
-                            <p>
-                                We'd love to hear from you. Fill out the form or reach out directly using the contact information below.
-                            </p>
+            {/* Hero Section */}
+            <div className="relative z-10 text-white py-20">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <motion.h1
+                        className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg rtl"
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        تواصل معنا
+                    </motion.h1>
+                    <motion.p
+                        className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed drop-shadow-md rtl"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                    >
+                        نحن هنا للإجابة على جميع استفساراتكم وتقديم أفضل الحلول لمشاريعكم من الرخام والأحجار الطبيعية
+                    </motion.p>
+                </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="grid lg:grid-cols-2 gap-12">
+                    {/* Contact Form */}
+                    <motion.div
+                        className="relative overflow-hidden"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ once: true }}
+                    >
+                        {/* Form Container with Gradient Background */}
+                        <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md rounded-3xl shadow-2xl border border-[#c8a464]/20 overflow-hidden">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -mr-16 -mt-16"></div>
+                            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -ml-12 -mb-12"></div>
+
+                            <div className="relative p-8 lg:p-10">
+                                {/* Form Header */}
+                                <div className="text-center mb-10">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#c8a464] to-[#d4b574] rounded-full mb-6 shadow-lg">
+                                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3 rtl">أرسل لنا رسالة</h2>
+                                    <p className="text-gray-600 rtl text-lg">نحن متحمسون لسماع أفكاركم ومساعدتكم في تحقيق مشاريعكم</p>
+                                </div>
+
+                                <form className="space-y-8">
+                                    {/* Name Fields */}
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div className="group">
+                                            <label className="text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                                <span>الاسم الأول</span>
+                                                <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                            </label>
+                                            <div className="relative">
+                                                <input
+                                                    type="text"
+                                                    className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                    placeholder="محمد"
+                                                />
+                                                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                                    <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="group">
+                                            <label className="text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                                <span>اسم العائلة</span>
+                                                <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                            </label>
+                                            <div className="relative">
+                                                <input
+                                                    type="text"
+                                                    className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                    placeholder="أحمد"
+                                                />
+                                                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                                    <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Email Field */}
+                                    <div className="group">
+                                        <label className="text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                            <span>البريد الإلكتروني</span>
+                                            <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                        </label>
+                                        <div className="relative">
+                                            <input
+                                                type="email"
+                                                className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                placeholder="mohamed@example.com"
+                                            />
+                                            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                                <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Phone Field */}
+                                    <div className="group">
+                                        <label className="text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                            <span>رقم الهاتف</span>
+                                            <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                        </label>
+                                        <div className="relative">
+                                            <input
+                                                type="tel"
+                                                className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                placeholder="+20 123 456 7890"
+                                            />
+                                            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                                <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Subject Field */}
+                                    <div className="group">
+                                        <label className="block text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                            <span>الموضوع</span>
+                                            <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                        </label>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                placeholder="استفسار عن الرخام المصري"
+                                            />
+                                            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                                <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Message Field */}
+                                    <div className="group">
+                                        <label className="block text-sm font-bold text-gray-700 mb-3 rtl text-right flex items-center justify-end">
+                                            <span>الرسالة</span>
+                                            <div className="mr-2 w-2 h-2 bg-[#c8a464] rounded-full"></div>
+                                        </label>
+                                        <div className="relative">
+                                            <textarea
+                                                rows="6"
+                                                className="w-full px-5 py-4 pr-12 bg-white/80 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#c8a464]/20 focus:border-[#c8a464] transition-all duration-300 resize-none text-right text-gray-800 placeholder-gray-400 shadow-sm hover:shadow-md group-hover:border-[#c8a464]/50"
+                                                placeholder="أخبرنا المزيد عن مشروعك واحتياجاتك من الرخام والأحجار الطبيعية..."
+                                            ></textarea>
+                                            <div className="absolute right-4 top-6">
+                                                <svg className="w-5 h-5 text-[#c8a464]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <motion.button
+                                        type="submit"
+                                        className="w-full relative overflow-hidden bg-gradient-to-r from-[#c8a464] to-[#d4b574] text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        <span className="relative z-10 flex items-center justify-center rtl">
+                                            <svg className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                            </svg>
+                                            إرسال الرسالة
+                                        </span>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#b8944a] to-[#c8a464] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </motion.button>
+
+                                    {/* Contact Info Below Form */}
+                                    <div className="pt-6 border-t border-[#c8a464]/20">
+                                        <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span className="text-sm font-medium">رد خلال 24 ساعة</span>
+                                            </div>
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span className="text-sm font-medium">استشارة مجانية</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                    </motion.div>
 
-                        <div className="space-y-8">
-                            {/* Address */}
-                            <div className="flex">
-                                <div className="mr-4 mt-1">
-                                    <div className="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                                        </svg>
+                    {/* Contact Information */}
+                    <div className="space-y-8">
+
+
+                        {/* Contact Details - Egypt Office */}
+                        <motion.div
+                            className="relative overflow-hidden"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                        >
+                            {/* Egypt Office Container with Gradient Background - matching form theme */}
+                            <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md rounded-3xl shadow-2xl border border-[#c8a464]/20 overflow-hidden">
+                                {/* Decorative Elements */}
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -ml-16 -mt-16"></div>
+                                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -mr-12 -mb-12"></div>
+
+                                <div className="relative p-8">
+                                    <div className="flex items-center justify-end mb-8">
+                                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 rtl">مكتب مصر</h2>
+                                        <div className="bg-gradient-to-br from-red-100 to-red-50 p-3 rounded-full ml-4 shadow-lg">
+                                            <svg className="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid gap-8">
+                                        {/* Address */}
+                                        <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border-r-4 border-amber-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                            <div className="flex items-start space-x-reverse space-x-4 rtl">
+                                                <div className="flex-1">
+                                                    <h3 className="font-bold text-amber-800 mb-3 text-right text-xl flex items-center justify-end">
+                                                        <span>العنوان</span>
+                                                        <div className="bg-amber-200 p-2 rounded-full ml-2 shadow-sm">
+                                                            <svg className="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            </svg>
+                                                        </div>
+                                                    </h3>
+                                                    <p className="text-amber-900 text-right leading-relaxed text-lg font-medium">
+                                                        15 ش المقاولون العرب - بوابة 3 نادى الشمس - مصر الجديدة
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Working Hours */}
+                                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 border-r-4 border-purple-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                            <div className="flex items-start space-x-reverse space-x-4 rtl">
+                                                <div className="flex-1">
+                                                    <h3 className="font-bold text-purple-800 mb-3 text-right text-xl flex items-center justify-end">
+                                                        <span>مواعيد العمل</span>
+                                                        <div className="bg-purple-200 p-2 rounded-full ml-2 shadow-sm">
+                                                            <svg className="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                        </div>
+                                                    </h3>
+                                                    <p className="text-purple-900 text-right leading-relaxed text-lg font-medium">
+                                                        9 ص الي 5 م
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Phone Numbers */}
+                                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-r-4 border-green-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                            <div className="flex items-start space-x-reverse space-x-4 rtl">
+                                                <div className="flex-1">
+                                                    <h3 className="font-bold text-green-800 mb-3 text-right text-xl flex items-center justify-end">
+                                                        <span>التليفون</span>
+                                                        <div className="bg-green-200 p-2 rounded-full ml-2 shadow-sm">
+                                                            <svg className="w-5 h-5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                            </svg>
+                                                        </div>
+                                                    </h3>
+                                                    <div className="text-green-900 text-right space-y-2 text-lg font-medium">
+                                                        <p>+01227424500</p>
+                                                        <p>+01093805978</p>
+                                                        <p>+01222748135</p>
+                                                        <p>+01063116660</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Contact Info Below Egypt Office */}
+                                    <div className="pt-6 border-t border-[#c8a464]/20 mt-8">
+                                        <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                </svg>
+                                                <span className="text-sm font-medium">اتصال مباشر</span>
+                                            </div>
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                                <span className="text-sm font-medium">خدمة عملاء متميزة</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-1">Our Location</h3>
-                                    <address className="not-italic text-gray-600">
-                                        <p>123 Stone Avenue</p>
-                                        <p>Suite 500</p>
-                                        <p>New York, NY 10001</p>
-                                        <p>United States</p>
-                                    </address>
-                                </div>
                             </div>
+                        </motion.div>
 
-                            {/* Phone */}
-                            <div className="flex">
-                                <div className="mr-4 mt-1">
-                                    <div className="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                                        </svg>
+                        {/* Algeria Office */}
+                        <motion.div
+                            className="relative overflow-hidden"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
+                            {/* Algeria Office Container with Gradient Background - matching form theme */}
+                            <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md rounded-3xl shadow-2xl border border-[#c8a464]/20 overflow-hidden">
+                                {/* Decorative Elements */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -mr-16 -mt-16"></div>
+                                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -ml-12 -mb-12"></div>
+
+                                <div className="relative p-8">
+                                    <div className="flex items-center justify-end mb-8">
+                                        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 rtl">مكتب الجزائر</h2>
+                                        <div className="bg-gradient-to-br from-green-100 to-green-50 p-3 rounded-full ml-4 shadow-lg">
+                                            <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid gap-8">
+                                        {/* Algeria Address */}
+                                        <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 border-r-4 border-teal-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                            <div className="flex items-start space-x-reverse space-x-4 rtl">
+                                                <div className="flex-1">
+                                                    <h3 className="font-bold text-teal-800 mb-3 text-right text-xl flex items-center justify-end">
+                                                        <span>العنوان</span>
+                                                        <div className="bg-teal-200 p-2 rounded-full ml-2 shadow-sm">
+                                                            <svg className="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            </svg>
+                                                        </div>
+                                                    </h3>
+                                                    <p className="text-teal-900 text-right leading-relaxed text-lg font-medium">
+                                                        بن بخاري محمد حيدر الواحات الشمالية ولاية الأغواط<br />
+                                                        الجمهورية الجزائرية
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Algeria Contact */}
+                                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-r-4 border-blue-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                            <div className="flex items-start space-x-reverse space-x-4 rtl">
+                                                <div className="flex-1">
+                                                    <h3 className="font-bold text-blue-800 mb-3 text-right text-xl flex items-center justify-end">
+                                                        <span>معلومات التواصل</span>
+                                                        <div className="bg-blue-200 p-2 rounded-full ml-2 shadow-sm">
+                                                            <svg className="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                            </svg>
+                                                        </div>
+                                                    </h3>
+                                                    <div className="text-blue-900 text-right space-y-2 text-lg font-medium">
+                                                        <p>بريد إلكتروني: info@elhebaeg.com</p>
+                                                        <p>التليفون: 00213551565552</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Contact Info Below Algeria Office */}
+                                    <div className="pt-6 border-t border-[#c8a464]/20 mt-8">
+                                        <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9a9 9 0 00-9 9m0 0a9 9 0 019-9" />
+                                                </svg>
+                                                <span className="text-sm font-medium">خدمة دولية</span>
+                                            </div>
+                                            <div className="flex items-center text-gray-600">
+                                                <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span className="text-sm font-medium">دعم متخصص</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-1">Phone</h3>
-                                    <p className="text-gray-600">
-                                        <a href="tel:+12125551234" className="hover:text-primary transition-colors">+1 (212) 555-1234</a>
-                                    </p>
-                                </div>
                             </div>
-
-                            {/* Email */}
-                            <div className="flex">
-                                <div className="mr-4 mt-1">
-                                    <div className="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-1">Email</h3>
-                                    <p className="text-gray-600">
-                                        <a href="mailto:info@granet.com" className="hover:text-primary transition-colors">info@granet.com</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Hours */}
-                            <div className="flex">
-                                <div className="mr-4 mt-1">
-                                    <div className="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-1">Business Hours</h3>
-                                    <div className="text-gray-600">
-                                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                                        <p>Saturday: 10:00 AM - 4:00 PM</p>
-                                        <p>Sunday: Closed</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-2xl p-6 md:p-8 shadow-soft border border-gray-100">
-                        <h2 className="text-2xl font-serif font-semibold mb-6">Send Us a Message</h2>
-
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Input
-                                    label="Name *"
-                                    id="name"
-                                    type="text"
-                                    placeholder="Your name"
-                                    error={errors.name}
-                                    {...register('name')}
-                                />
-
-                                <Input
-                                    label="Phone *"
-                                    id="phone"
-                                    type="tel"
-                                    placeholder="Your phone number"
-                                    error={errors.phone}
-                                    {...register('phone')}
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Input
-                                    label="Email"
-                                    id="email"
-                                    type="email"
-                                    placeholder="Your email"
-                                    error={errors.email}
-                                    {...register('email')}
-                                />
-
-                                <Input
-                                    label="Company"
-                                    id="company"
-                                    type="text"
-                                    placeholder="Your company"
-                                    error={errors.company}
-                                    {...register('company')}
-                                />
-                            </div>
-
-                            <Input
-                                label="Quantity (m²)"
-                                id="quantityM2"
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                placeholder="Estimated quantity needed"
-                                error={errors.quantityM2}
-                                {...register('quantityM2', {
-                                    valueAsNumber: true,
-                                })}
-                            />
-
-                            <Textarea
-                                label="Message *"
-                                id="message"
-                                placeholder="How can we help you?"
-                                rows={6}
-                                error={errors.message}
-                                {...register('message')}
-                            />
-
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                size="full"
-                                disabled={isSubmitting}
+                            {/* Company Overview with Map */}
+                            <motion.div
+                                className="relative overflow-hidden"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                viewport={{ once: true }}
                             >
-                                {isSubmitting ? (
-                                    <div className="flex items-center justify-center">
-                                        <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Sending Message...
+                                {/* Map Container with Gradient Background - matching form theme */}
+                                <div className="relative bg-gradient-to-br from-white/95 via-[#c8a464]/5 to-[#c8a464]/10 backdrop-blur-md rounded-3xl shadow-2xl border border-[#c8a464]/20 overflow-hidden">
+                                    {/* Decorative Elements */}
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c8a464]/20 to-transparent rounded-full -mr-16 -mt-16"></div>
+                                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#c8a464]/15 to-transparent rounded-full -ml-12 -mb-12"></div>
+
+                                    <div className="relative p-8">
+                                        {/* Header */}
+                                        <div className="text-center mb-8">
+                                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#c8a464] to-[#d4b574] rounded-full mb-6 shadow-lg">
+                                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                            </div>
+                                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3 rtl">موقعنا</h2>
+                                            <p className="text-gray-600 rtl text-lg text-right leading-relaxed">
+                                                تفضلوا بزيارة مقرنا الرئيسي في مصر، حيث ندير عمليات الاستيراد والتصدير للرخام والمواد الغذائية والمنتجات الزراعية عالية الجودة.
+                                            </p>
+                                        </div>
+
+                                        {/* Google Maps Embed */}
+                                        <div className="relative rounded-2xl overflow-hidden shadow-lg border-2 border-[#c8a464]/20 mb-6">
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13815.319162356636!2d31.3417978!3d30.118921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa5d786666b%3A0x14ebec70ab30918a!2sAl%20Mqawlon%20Al%20Arab%2C%20Al%20Matar%2C%20El%20Nozha%2C%20Cairo%20Governorate!5e0!3m2!1sen!2seg!4v1725534262086!5m2!1sen!2seg"
+                                                width="100%"
+                                                height="300"
+                                                style={{ border: 0 }}
+                                                allowFullScreen=""
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                                className="w-full"
+                                            ></iframe>
+                                            {/* Map overlay for styling */}
+                                            <div className="absolute inset-0 pointer-events-none border-2 border-[#c8a464]/30 rounded-2xl"></div>
+                                        </div>
+
+                                        {/* Map Info Below */}
+                                        <div className="pt-6 border-t border-[#c8a464]/20">
+                                            <div className="flex items-center justify-center space-x-reverse space-x-8 rtl">
+                                                <div className="flex items-center text-gray-600">
+                                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    </svg>
+                                                    <span className="text-sm font-medium">موقع سهل الوصول</span>
+                                                </div>
+                                                <div className="flex items-center text-gray-600">
+                                                    <svg className="w-5 h-5 text-[#c8a464] ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m6 4V7a2 2 0 00-2-2H6a2 2 0 00-2 2v4m-4 4V7a4 4 0 014-4h12a4 4 0 014 4v4" />
+                                                    </svg>
+                                                    <span className="text-sm font-medium">مواقف متاحة</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                ) : 'Send Message'}
-                            </Button>
-                        </form>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+
                     </div>
                 </div>
             </div>
 
-            {/* Map */}
-            <div className="w-full h-96 bg-gray-200">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343056!2d-74.0059425!3d40.7127281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3b8b6ef%3A0xb89d1fe6bc499443!2sDowntown%20Manhattan%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1654523111957!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-            </div>
-        </>
-    );
+
+        </div>
+    )
 }
+
+export default page

@@ -48,7 +48,7 @@ const Contact = () => {
                                     <div className="flex items-center justify-between mb-8">
                                         <div className="flex-1 h-0.5 bg-gradient-to-l from-[#c8a464] to-transparent"></div>
                                         <div className="px-4">
-                                            <img src="/logo-ar.png" alt="Company Logo" className="h-16 object-contain" />
+                                            <img src="/logo-en.png" alt="Company Logo" className="h-16 object-contain" />
                                         </div>
                                         <div className="flex-1 h-0.5 bg-gradient-to-r from-[#c8a464] to-transparent"></div>
                                     </div>

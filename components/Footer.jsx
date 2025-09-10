@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaWhatsapp, FaInstagram, FaFacebookF, FaArrowRight } from 'react-icons/fa'
 
 const Footer = () => {
     return (
@@ -9,114 +10,104 @@ const Footer = () => {
             <div className="absolute inset-0 bg-[url('/marble_720.png')] opacity-80 z-0"></div>
 
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
-                <div className="flex flex-col md:flex-row justify-center items-center md:space-x-12 lg:space-x-20">
-                    {/* Contact Information - Right side in the UI */}
-                    <div className="md:w-2/5 mb-8 md:mb-0 flex flex-col items-start">
-                        <h2 className="text-3xl mb-6 font-bold text-white self-start" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>معلومات الاتصال</h2>
+                <div dir='rtl' className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
 
-                        <div className="flex flex-col space-y-4 w-full">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-gold rounded-full p-2 w-8 h-8 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="text-white" viewBox="0 0 16 16">
-                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                                    </svg>
-                                </div>
-                                <p className="text-lg" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>١ شارع الحصن، الهرم، الجيزة</p>
-                            </div>
+                    {/* Column 1: Logo and Description */}
+                    <div className="text-center  flex flex-col items-end md:items-end">
 
-                            <div className="flex items-center gap-3">
-                                <div className="bg-gold rounded-full p-2 w-8 h-8 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="text-white" viewBox="0 0 16 16">
-                                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
-                                    </svg>
-                                </div>
-                                <p>Info@elfares-Eg.Com</p>
-                            </div>
-
-                            <div className="flex items-center gap-3">
-                                <div className="bg-gold rounded-full p-2 w-8 h-8 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="text-white" viewBox="0 0 16 16">
-                                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                                    </svg>
-                                </div>
-                                <p dir="ltr"><span style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>إتصال</span>: 002001129859453</p>
-                            </div>
-
-                            <div className="flex items-center gap-3">
-                                <div className="bg-gold rounded-full p-2 w-8 h-8 flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="text-white" viewBox="0 0 16 16">
-                                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
-                                    </svg>
-                                </div>
-                                <p dir="ltr"><span style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>واتساب</span>: 002001227661870</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Logo and Description - Left side in the UI */}
-                    <div className="md:w-2/5 text-right flex flex-col items-end">
                         <div className="mb-6">
-                            <Image src="/logowhite.png" alt="Prime Marble" width={280} height={110} />
+                            <Image src="/logo-en.png" alt="Prime Marble" width={250} height={100} />
                         </div>
-
-                        <p className="text-lg mb-8 leading-relaxed text-right" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>
-                            مرحباً بكم في الفارس  وجهتكم الأولى للحصول على أرقى أنواع الرخام والجرانيت المصري، حيث سنوات من الخبرة والتزامنا بالتميز
+                        <p className="text-lg mb-6 leading-relaxed text-center md:text-right" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>
+                            مرحباً بكم في الفارس وجهتكم الأولى للحصول على أرقى أنواع الرخام والجرانيت المصري، حيث سنوات من الخبرة والتزامنا بالتميز
                         </p>
 
-                        <div className="flex space-x-4">
-                            <Link href="mailto:Info@elfares-Eg.Com" className="bg-gray-600 rounded-full p-2 w-10 h-10 flex items-center justify-center hover:bg-gray-700 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
-                                </svg>
+                        {/* Contact Us Button */}
+
+                        <Link href="/contact" className="group relative overflow-hidden bg-white/10 backdrop-blur-xl text-white hover:bg-white hover:text-black  font-bold py-4 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl border-2 border-white">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-30 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                            <div className="flex items-center gap-3 relative z-10 justify-center">
+                                <span className="text-lg font-semibold" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>تواصل معنا</span>
+                                <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={18} />
+                            </div>
+                        </Link>
+
+
+
+                    </div>
+
+                    {/* Column 2: Contact Information */}
+                    <div className="text-center md:text-center">
+                        <h2 className="text-3xl mb-6 font-bold text-white text-center md:text-right" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>معلومات الاتصال</h2>
+
+                        <div className="flex flex-col space-y-4">
+                            <div className="flex items-center gap-3 justify-center md:justify-start">
+                                <div className="bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                                    <FaMapMarkerAlt className="text-black" size={18} />
+                                </div>
+                                <p className="text-lg text-white" style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>١ شارع الحصن، الهرم، الجيزة</p>
+                            </div>
+
+                            <div className="flex items-center gap-3 justify-center md:justify-start">
+                                <div className="bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                                    <FaEnvelope className="text-black" size={18} />
+                                </div>
+                                <p className="text-white">Info@elfares-Eg.Com</p>
+                            </div>
+
+                            <div className="flex items-center gap-3 justify-center md:justify-start">
+                                <div className="bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                                    <FaPhone className="text-black" size={18} />
+                                </div>
+                                <p className="text-white" dir="ltr">
+                                    <span style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>إتصال</span>: 002001129859453
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-3 justify-center md:justify-start">
+                                <div className="bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                                    <FaWhatsapp className="text-black" size={18} />
+                                </div>
+                                <p className="text-white" dir="ltr">
+                                    <span style={{ fontFamily: 'var(--font-arabic, sans-serif)' }}>واتساب</span>: 002001227661870
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Column 3: About Section */}
+                    <div className="text-center md:text-left">
+                        <h2 className="text-3xl mb-6 font-bold text-white text-center md:text-left">About</h2>
+                        <p className="text-lg mb-8 leading-relaxed text-center md:text-left">
+                            We specialize in high-quality import and export.
+                        </p>
+
+                        <div className="flex justify-center md:justify-start gap-4">
+                            <Link href="mailto:Info@elfares-Eg.Com" className=" rounded-full p-3 w-14 h-14 flex items-center justify-center  transition-colors">
+                                <FaEnvelope className="text-white" size={30} />
                             </Link>
-                            <Link href="https://wa.me/002001227661870" className="bg-green-500 rounded-full p-2 w-10 h-10 flex items-center justify-center hover:bg-green-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
-                                </svg>
+                            <Link href="https://wa.me/002001227661870" className=" rounded-full p-3 w-14 h-14 flex items-center justify-center  transition-colors">
+                                <FaWhatsapp className="text-white" size={30} />
                             </Link>
-                            <Link href="https://instagram.com" className="bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-full p-2 w-10 h-10 flex items-center justify-center hover:opacity-90 transition-opacity">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
-                                </svg>
+                            <Link href="https://instagram.com" className=" rounded-full p-3 w-14 h-14 flex items-center justify-centerv transition-colors">
+                                <FaInstagram className="text-white" size={30} />
                             </Link>
-                            <Link href="https://facebook.com" className="bg-blue-600 rounded-full p-2 w-10 h-10 flex items-center justify-center hover:bg-blue-700 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                                </svg>
+                            <Link href="https://facebook.com" className=" rounded-full p-3 w-14 h-14 flex items-center justify-center  transition-colors">
+                                <FaFacebookF className="text-white" size={30} />
                             </Link>
                         </div>
+
                     </div>
                 </div>
 
-                {/* Copyright section */}
-                <div className="border-t border-gray-800 mt-8 pt-6 text-center">
-                    <p className="text-sm text-gray-400">
-                        Copyright <span className="text-gold">El-Fares Marble</span> All Rights Reserved 2024
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                        Development By <a href="https://kerlos.site" className="text-gray-400 hover:text-gold ">Kerlos Hany</a>
+                {/* Created by section */}
+                <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+                    <p className="text-gray-300 text-sm">
+                        Created with ❤️ by <span className="text-white font-semibold">Kerlos Hany</span> & <span className="text-white font-semibold">Amr Khaled</span>
                     </p>
                 </div>
             </div>
 
-            {/* Fixed side floating social buttons */}
-            <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-                <Link href="https://wa.me/002001227661870" className="bg-green-500 p-3 rounded-r-md hover:bg-green-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
-                    </svg>
-                </Link>
-                <Link href="tel:002001129859453" className="bg-amber-500 p-3 rounded-r-md hover:bg-amber-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                    </svg>
-                </Link>
-                <Link href="mailto:Info@elfares-Eg.Com" className="bg-red-500 p-3 rounded-r-md hover:bg-red-600 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
-                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
-                    </svg>
-                </Link>
-            </div>
         </footer>
     )
 }
