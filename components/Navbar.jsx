@@ -98,10 +98,12 @@ const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div dir='rtl' className="absolute mt-2 w-52 rounded-lg shadow-xl bg-white/95 backdrop-blur-sm hidden group-hover:block transform transition-all duration-200 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 group-hover:visible invisible">
-                <div className="py-1 border-t-2 border-yellow-300 rounded-t-lg">
-                  <Link href="/workflow" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">مراحل العمل</Link>
-                  <Link href="/process" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">عملية التصنيع</Link>
+              <div dir='rtl' className="absolute top-full left-0 pt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="rounded-lg shadow-xl bg-white/95 backdrop-blur-sm border-t-2 border-yellow-300">
+                  <div className="py-1">
+                    <Link href="/workflow" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">مراحل العمل</Link>
+                    <Link href="/process" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">عملية التصنيع</Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -113,11 +115,13 @@ const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute mt-2 w-52 rounded-lg shadow-xl bg-white/95 backdrop-blur-sm hidden group-hover:block transform transition-all duration-200 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 group-hover:visible invisible">
-                <div dir='rtl' className="py-1 border-t-2 border-yellow-300 rounded-t-lg">
-                  <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">المصنع</Link>
-                  <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">التشطيبات</Link>
-                  <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">التعبئة والتغليف</Link>
+              <div className="absolute top-full left-0 pt-2 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div dir='rtl' className="rounded-lg shadow-xl bg-white/95 backdrop-blur-sm border-t-2 border-yellow-300">
+                  <div className="py-1">
+                    <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">المصنع</Link>
+                    <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">التشطيبات</Link>
+                    <Link href="/products" className="block px-6 py-3 text-sm text-gray-800 hover:bg-gray-100 hover:text-marble transition-colors duration-150">التعبئة والتغليف</Link>
+                  </div>
                 </div>
               </div>
             </div>

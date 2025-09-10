@@ -1,132 +1,236 @@
-'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
+'use client';
 
-const Hero = () => {
-    const [currentSlide, setCurrentSlide] = useState(0)
-    const slides =
-        [
-            {
-                image: '/slide one.jpeg',
-                title: 'تريستا (لؤلؤة سيناء)',
-                description: 'رخام مميز بدرجات البيج والكريم الفنية، يتميز بعروق دقيقة تضفي لمسة من العمق والرقي على الأرضيات والجدران وأسطح الطاولات. يتم استخدامه على نطاق واسع في المشاريع السكنية والتجارية لإضفاء طابع فاخر. كما يجمع بين الصلابة والجمال ليبقى خيارًا مثاليًا لمحبي الذوق الرفيع.',
-                icon: '/logo-ar.png'
-            },
-            {
-                image: '/slide two.jpeg',
-                title: 'الفارس ',
-                description: 'نقدم أفضل أنواع الرخام والجرانيت بأعلى جودة وتصميمات فريدة تناسب جميع الأذواق. فريقنا المتخصص يعمل على اختيار المواد بعناية فائقة من أفضل المحاجر. مع الفارس ماربل تحصل على منتج يجمع بين القوة والمتانة مع لمسة فنية تضيف قيمة لأي مشروع.',
-                icon: '/logo-ar.png'
-            },
-            {
-                image: '/slide three.jpg',
-                title: 'تصاميم فاخرة',
-                description: 'مجموعة متنوعة من الرخام والجرانيت بتشكيلات وألوان متعددة لتناسب مختلف الاحتياجات. سواء كنت تبحث عن لمسة عصرية أو كلاسيكية، ستجد ما يلبي تطلعاتك. نحن نحرص على تقديم حلول متكاملة تعكس الأناقة والجودة في كل تفاصيل التصميم.',
-                icon: '/logo-ar.png'
-            
-            },
-            {
-                image: '/slide three.jpg',
-                title: 'تصاميم فاخرة',
-                description: 'مجموعة متنوعة من الرخام والجرانيت بتشكيلات وألوان متعددة لتناسب مختلف الاحتياجات. سواء كنت تبحث عن لمسة عصرية أو كلاسيكية، ستجد ما يلبي تطلعاتك. نحن نحرص على تقديم حلول متكاملة تعكس الأناقة والجودة في كل تفاصيل التصميم.',
-                icon: '/logo-ar.png'
-            },
-        ]
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { motion } from 'framer-motion';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
-
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length)
+// Professional Animation Variants
+const fadeInUp = {
+    initial: { opacity: 0, y: 50 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     }
+};
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
+const fadeInRight = {
+    initial: { opacity: 0, x: -50 },
+    animate: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }
     }
+};
 
-    const goToSlide = (index) => {
-        setCurrentSlide(index)
+const staggerContainer = {
+    initial: {},
+    animate: {
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.3
+        }
     }
+};
+// Professional Statistics Component
+const StatsSection = () => (
+    <motion.div
+        className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-8 md:py-12"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+    >
+        {[
+            { number: "25+", text: "سنة خبرة", icon: "🏆" },
+            { number: "10,000+", text: "عميل راضي", icon: "👥" },
+            { number: "500+", text: "مشروع مكتمل", icon: "🏗️" },
+            { number: "100%", text: "جودة مضمونة", icon: "✅" }
+        ].map((stat, index) => (
+            <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="text-center bg-white/5 backdrop-blur-lg rounded-xl p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300"
+            >
+                <div className="text-2xl mb-2">{stat.icon}</div>
+                <div className="text-2xl md:text-3xl font-bold text-amber-400 mb-1">{stat.number}</div>
+                <div className="text-sm md:text-base text-white/80">{stat.text}</div>
+            </motion.div>
+        ))}
+    </motion.div>
+);
+ 
+
+export default function HomePage() {
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     return (
-        <section className="relative h-screen w-full overflow-hidden pt-16">
-            {/* Background Image */}
-            <div className="absolute top-0 left-0 w-full h-full">
-                <Image
-                    src={slides[currentSlide].image}
-                    alt="Marble background"
-                    className='bg-cover bg-center w-full h-full object-cover'
-                    width={1920}
-                    height={1080}
-                    priority
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-25"></div>
-            </div>
+        <>
+            {/* Professional Hero Section */}
+            <section className="relative min-h-screen pt-40  font-rubik bg-gradient-to-br from-slate-900 via-slate-800 to-black overflow-hidden" dir="rtl">
+                {/* Background Slider */}
+                <div className="absolute inset-0">
+                    <Swiper
+                        modules={[EffectFade, Autoplay]}
+                        effect="fade"
+                        autoplay={{
+                            delay: 5000,
+                            disableOnInteraction: false
+                        }}
+                        loop={true}
+                        className="h-full"
+                        speed={2000}
+                    >
+                        <SwiperSlide>
+                            <div className="relative h-full">
+                                <Image
+                                    src="/marble.jpg"
+                                    alt="رخام فاخر"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="100vw"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className="relative h-full">
+                                <Image
+                                    src="/marble2.jpg"
+                                    alt="جرانيت فاخر"
+                                    fill
+                                    className="object-cover"
+                                    sizes="100vw"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className="relative h-full">
+                                <Image
+                                    src="/red-aswan.jpg"
+                                    alt="حجر أسوان"
+                                    fill
+                                    className="object-cover"
+                                    sizes="100vw"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
+                            </div>
+                        </SwiperSlide>
+                    </Swiper>
+                </div>
 
-            {/* Content */}
-            <div className="relative h-full container mx-auto px-4 flex flex-col justify-center" dir="rtl">
-                <div className="max-w-lg ml-auto mr-4 md:mr-8 lg:mr-16">
-                    <div className="flex items-center justify-start mb-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex-shrink-0">
-                            <Image
-                                src={slides[currentSlide].icon}
-                                alt="Logo"
-                                width={48}
-                                height={48}
-                                className="object-cover"
-                            />
+                {/* Main Content */}
+                <div className="relative z-10 min-h-screen flex items-center">
+                    <div className="container mx-auto px-4 md:px-6">
+                        <div className="max-w-6xl mx-auto">
+
+                            {/* Hero Content */}
+                            <motion.div
+                                className="text-center text-white mb-16"
+                                variants={staggerContainer}
+                                initial="initial"
+                                animate="animate"
+                            >
+                                {/* Company Badge */}
+                                <motion.div
+                                    className="mb-8"
+                                    variants={fadeInUp}
+                                >
+                                    <span className="inline-flex items-center gap-3 px-6 py-3 bg-amber-500/20 backdrop-blur-xl border border-amber-400/30 rounded-full text-amber-300 font-bold text-sm tracking-wide">
+                                        <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                                        الشركة الرائدة في مصر للحجر الطبيعي
+                                        <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                                    </span>
+                                </motion.div>
+
+                                {/* Main Heading */}
+                                <motion.div variants={fadeInUp}>
+                                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                                        <span className="block bg-gradient-to-r from-white to-amber-100 bg-clip-text text-transparent">
+                                            الفارس
+                                        </span>
+                                        <span className="block text-2xl md:text-4xl lg:text-5xl mt-4 bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent font-medium">
+                                            للرخام والجرانيت
+                                        </span>
+                                    </h1>
+                                </motion.div>
+
+                                {/* Subtitle */}
+                                <motion.div variants={fadeInUp}>
+                                    <div className="h-1 w-32 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full mx-auto mb-8"></div>
+                                    <h2 className="text-xl md:text-3xl lg:text-4xl font-light text-amber-100 mb-6 max-w-4xl mx-auto leading-relaxed">
+                                        حوّل مساحتك إلى
+                                        <span className="block text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-amber-300 to-yellow-400 bg-clip-text text-transparent mt-2">
+                                            تُحفة فنية
+                                        </span>
+                                    </h2>
+                                    <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+                                        اكتشف قمة الفخامة مع مجموعتنا المختارة بعناية من الرخام والجرانيت الفاخر.
+                                        أكثر من 25 سنة في تحويل الأحلام إلى واقع لأكثر العملاء تميزاً في مصر.
+                                    </p>
+                                </motion.div>
+
+                                {/* CTA Buttons */}
+                                <motion.div
+                                    className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center mb-16"
+                                    variants={fadeInUp}
+                                >
+                                    <Link
+                                        href="/products"
+                                        className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-gradient-to-r from-amber-400 to-amber-600 rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105"
+                                    >
+                                        <span className="flex items-center gap-3">
+                                            💎 استكشف مجموعتنا الفاخرة
+                                            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        </span>
+                                    </Link>
+
+                                    <Link
+                                        href="#contact"
+                                        className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white border-2 border-amber-400/50 rounded-full backdrop-blur-xl hover:bg-amber-400/10 transition-all duration-300"
+                                    >
+                                        <span className="flex items-center gap-3">
+                                            📞 احصل على استشارة مجانية
+                                        </span>
+                                    </Link>
+                                </motion.div>
+                            </motion.div>
+
+                            {/* Statistics Section */}
+                            <StatsSection />
+
+                             Primemarble
                         </div>
-                        <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white ml-3 p-4 font-rubik">
-                            {slides[currentSlide].title}
-                        </h1>
-                    </div>
-                    <p className="text-lg  text-white mb-8 font-rubik text-right">
-                        {slides[currentSlide].description}
-                    </p>
-                    <div className="text-right">
-                        <button className="bg-black bg-opacity-75 hover:bg-opacity-90 text-white px-6 py-3 rounded-full font-rubik">
-                            اعرف المزيد
-                        </button>
                     </div>
                 </div>
-            </div>
 
-            {/* Navigation arrows */}
-            <div className="absolute inset-y-0 right-0 flex items-center">
-                <button
-                    onClick={prevSlide}
-                    className="bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-l-md"
+                {/* Professional Scroll Indicator */}
+                <motion.div
+                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-            </div>
-            <div className="absolute inset-y-0 left-0 flex items-center">
-                <button
-                    onClick={nextSlide}
-                    className="bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-r-md"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-            </div>
-
-            {/* Slide indicators */}
-            <div className="absolute bottom-10 left-0 right-0">
-                <div className="flex justify-center space-x-reverse space-x-2" dir="rtl">
-                    {slides.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => goToSlide(index)}
-                            className={`w-3 h-3 rounded-full ${currentSlide === index ? 'bg-white' : 'bg-white bg-opacity-50'
-                                }`}
-                        ></button>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
+                    <div className="w-6 h-10 border-2 border-amber-400/60 rounded-full flex justify-center mb-3">
+                        <motion.div
+                            className="w-1 h-3 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full mt-2"
+                            animate={{ y: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                        />
+                    </div>
+                    <p className="text-amber-300/80 text-sm font-medium">اكتشف المزيد</p>
+                </motion.div>
+            </section>
+        </>
+    );
 }
-
-export default Hero
